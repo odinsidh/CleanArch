@@ -19,6 +19,7 @@ const (
 	Report
 	Users
 	Feed
+	Like
 )
 
 type Permission int
