@@ -1,0 +1,53 @@
+func (self *commandUseCase) ChangeUsername(ctx context.Context, request dAuthN.ChangeUsername) error {
+	// =====================================================================
+	//  error tracing
+	// =====================================================================
+	// var err error
+	// var operation string = "authentication > commandUseCase > ResetPasswordRequest"
+	// var input string = fmt.Sprintf("request: [%v]", request)
+
+	// =====================================================================
+	//  usecase checkers
+	// =====================================================================
+
+	// =====================================================================
+	//  core logick
+	// =====================================================================
+	return nil
+}
+
+func (self *commandUseCase) ChangeEmail(ctx context.Context, request dAuthN.ChangeEmail) error {
+	// =====================================================================
+	//  error tracing
+	// =====================================================================
+	// var err error
+	// var operation string = "authentication > commandUseCase > ResetPasswordRequest"
+	// var input string = fmt.Sprintf("request: [%v]", request)
+
+	// =====================================================================
+	//  usecase checkers
+	// =====================================================================
+
+	// =====================================================================
+	//  core logick
+	// =====================================================================
+	return nil
+}
+
+func (self *commandUseCase) ChangePassword(ctx context.Context, request dAuthN.ChangePassword) error {
+	// =====================================================================
+	//  error tracing
+	// =====================================================================
+	// var err error
+	// var operation string = "authentication > commandUseCase > ResetPasswordRequest"
+	// var input string = fmt.Sprintf("request: [%v]", request)
+
+	// =====================================================================
+	//  usecase checkers
+	// =====================================================================
+
+	// =====================================================================
+	//  core logick
+	// =====================================================================
+	return nil
+}
