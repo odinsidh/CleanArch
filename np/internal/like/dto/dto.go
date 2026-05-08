@@ -1,14 +1,13 @@
 package dto
 
-type CountInput struct {
-	TargetID   int
-	TargetType string
+type CountRequest struct {
+	UserID  int
+	Targets []Target
 }
 
-type CountOutput struct {
+type Target struct {
 	TargetID   int
 	TargetType string
-	Count      map[string]int
 }
 
 type Reaction struct {

@@ -3,9 +3,10 @@ package usecase
 import (
 	"context"
 	eAuthorization "newsportal/internal/authorization/entity"
-	dLike "newsportal/internal/like/dto"
 	eLike "newsportal/internal/like/entity"
 )
+
+//go:generate mockgen -source=interface_repository.go -destination=../mock/mock_test.go -package=mockgen
 
 // =====================================================================
 //  Universal interface
@@ -19,23 +20,15 @@ type SessionProvider interface {
 //	Query interface
 // =====================================================================
 
-type QueryUseCase interface {
-	CountReaction(ctx context.Context, request []dLike.CountInput) ([]dLike.CountOutput, error)
+type QueryRepository interface {
+	CountReaction(ctx context.Context, request []CountRequest) ([]CountResponse, error)
 }
-
-type QueryRepository interface{}
 
 // =====================================================================
 //  Command interface
 // =====================================================================
 
-type CommandUseCase interface {
-	// IsReactionExist(ctx context.Context, request dLike.Reaction) (*eLike.Reaction, error)
-	HitPositive(ctx context.Context, request dLike.Reaction) error
-	HitNegative(ctx context.Context, request dLike.Reaction) error
-}
-
 type CommandRepository interface {
-	IsReactionExist(ctx context.Context, userID int, targetID int, targetType string) (*eLike.Reaction, error)
+	IsReactionExist(ctx context.Context, request *eLike.Reaction) (*eLike.Reaction, error)
 	ApplyReaction(ctx context.Context, reaction eLike.Reaction) error
 }

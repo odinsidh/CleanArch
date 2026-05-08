@@ -17,13 +17,13 @@ type Reaction struct {
 	Timestamp    time.Time
 }
 
-func NewReaction(ReactionType int, UserID int, TargetID int, TargetType string) (*Reaction, error) {
+func NewReaction(ReactionType ReactionType, UserID int, TargetID int, TargetType string) (*Reaction, error) {
 	var err error
 
-	rt, err := NewReactionType(ReactionType)
-	if err != nil {
-		return nil, err
-	}
+	// rt, err := NewReactionType(ReactionType)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	uID, err := NewUserID(UserID)
 	if err != nil {
@@ -41,7 +41,7 @@ func NewReaction(ReactionType int, UserID int, TargetID int, TargetType string) 
 	}
 
 	output := &Reaction{
-		ReactionType: rt,
+		ReactionType: ReactionType,
 		UserID:       uID,
 		TargetID:     tID,
 		TargetType:   tt,

@@ -3,6 +3,8 @@ package usecase
 import (
 	"errors"
 	"fmt"
+
+	eAuthorization "newsportal/internal/authorization/entity"
 )
 
 // =====================================================================
@@ -23,13 +25,55 @@ func (u UseCaseError) Unwrap() error {
 	return u.Err
 }
 
+func errWrap(input any, operation string, err error) UseCaseError {
+	return UseCaseError{
+		Input:     input,
+		Operation: operation,
+		Err:       err,
+	}
+}
+
 // =====================================================================
-//  Universal error
+//  Permission error
 // =====================================================================
 
 var (
 	PermissionIssue error = errors.New("permission issue")
 )
+
+type PermissionError struct {
+	Domain     eAuthorization.Domain
+	Permission eAuthorization.Permission
+}
+
+func (p PermissionError) Error() string {
+	return fmt.Sprintf("permission issue, domain(%v) permission(%v)", p.Domain, p.Permission)
+}
+
+func (p PermissionError) Unwrap() error {
+	return PermissionIssue
+}
+
+// =====================================================================
+//	Validation error
+// =====================================================================
+
+var (
+	ValidateIssue error = errors.New("validate issue")
+)
+
+type ValidationError struct {
+	Input any
+	Err   error
+}
+
+func (v ValidationError) Error() string {
+	return fmt.Sprintf("%v, input(%v) validate error(%v)", ValidateIssue, v.Input, v.Err)
+}
+
+func (v ValidationError) Unwrap() error {
+	return v.Err
+}
 
 // =====================================================================
 //  Query error
