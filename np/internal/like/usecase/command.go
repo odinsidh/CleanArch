@@ -25,7 +25,7 @@ func (c *commandUseCase) hitCaller(ctx context.Context, request dLike.Reaction, 
 	domain := eAuth.Like
 	permission := eAuth.CanRead
 	if !session.Can(domain, permission) {
-		return errWrap(request, op, PermissionError{
+		return errWrap(request, op, &PermissionError{
 			Domain:     domain,
 			Permission: permission,
 		})

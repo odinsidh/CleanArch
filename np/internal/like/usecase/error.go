@@ -17,16 +17,16 @@ type UseCaseError struct {
 	Err       error
 }
 
-func (u UseCaseError) Error() string {
+func (u *UseCaseError) Error() string {
 	return fmt.Sprintf("%s : %v context(%v)", u.Operation, u.Err, u.Input)
 }
 
-func (u UseCaseError) Unwrap() error {
+func (u *UseCaseError) Unwrap() error {
 	return u.Err
 }
 
-func errWrap(input any, operation string, err error) UseCaseError {
-	return UseCaseError{
+func errWrap(input any, operation string, err error) *UseCaseError {
+	return &UseCaseError{
 		Input:     input,
 		Operation: operation,
 		Err:       err,
@@ -46,11 +46,11 @@ type PermissionError struct {
 	Permission eAuthorization.Permission
 }
 
-func (p PermissionError) Error() string {
+func (p *PermissionError) Error() string {
 	return fmt.Sprintf("permission issue, domain(%v) permission(%v)", p.Domain, p.Permission)
 }
 
-func (p PermissionError) Unwrap() error {
+func (p *PermissionError) Unwrap() error {
 	return PermissionIssue
 }
 
@@ -67,17 +67,29 @@ type ValidationError struct {
 	Err   error
 }
 
-func (v ValidationError) Error() string {
+func (v *ValidationError) Error() string {
 	return fmt.Sprintf("%v, input(%v) validate error(%v)", ValidateIssue, v.Input, v.Err)
 }
 
-func (v ValidationError) Unwrap() error {
+func (v *ValidationError) Unwrap() error {
 	return v.Err
 }
 
 // =====================================================================
-//  Query error
+//  Universal error
 // =====================================================================
+
+var (
+	UserIDEqualToZero error = errors.New("userID is equal to zero")
+)
+
+// =====================================================================
+//	Query error
+// =====================================================================
+
+var (
+	TargetLengthIsEqualToZero error = errors.New("target length is equal to zero")
+)
 
 // =====================================================================
 //  Command error

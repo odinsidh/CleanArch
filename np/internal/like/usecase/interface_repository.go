@@ -6,7 +6,7 @@ import (
 	eLike "newsportal/internal/like/entity"
 )
 
-//go:generate mockgen -source=interface_repository.go -destination=../mock/mock_test.go -package=mockgen
+//go:generate mockgen -package mocks -source interface_repository.go -destination ../mocks/mocks_repository.go
 
 // =====================================================================
 //  Universal interface

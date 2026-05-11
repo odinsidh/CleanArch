@@ -16,8 +16,19 @@ func (c *queryUseCase) CountReaction(ctx context.Context, request dLike.CountReq
 	// =====================================================================
 	// 	checkers
 	// =====================================================================
+	if request.UserID <= 0 {
+		return nil, &UseCaseError{
+			Input:     request,
+			Operation: op,
+			Err:       UserIDEqualToZero,
+		}
+	}
 	if len(request.Targets) == 0 {
-		return []CountResponse{}, nil
+		return nil, &UseCaseError{
+			Input:     request,
+			Operation: op,
+			Err:       TargetLengthIsEqualToZero,
+		}
 	}
 
 	// =====================================================================
@@ -31,7 +42,7 @@ func (c *queryUseCase) CountReaction(ctx context.Context, request dLike.CountReq
 	domain := eAuth.Like
 	permission := eAuth.CanRead
 	if !session.Can(domain, permission) {
-		return nil, errWrap(request, op, PermissionError{
+		return nil, errWrap(request, op, &PermissionError{
 			Domain:     domain,
 			Permission: permission,
 		})
@@ -46,7 +57,7 @@ func (c *queryUseCase) CountReaction(ctx context.Context, request dLike.CountReq
 
 		validTargetID, err := eLike.NewTargetID(request.Targets[index].TargetID)
 		if err != nil {
-			return nil, errWrap(request, op, ValidationError{
+			return nil, errWrap(request, op, &ValidationError{
 				Input: request.Targets[index].TargetID,
 				Err:   err,
 			})
@@ -54,7 +65,7 @@ func (c *queryUseCase) CountReaction(ctx context.Context, request dLike.CountReq
 
 		validTargetType, err := eLike.NewTargetType(request.Targets[index].TargetType)
 		if err != nil {
-			return nil, errWrap(request, op, ValidationError{
+			return nil, errWrap(request, op, &ValidationError{
 				Input: request.Targets[index].TargetType,
 				Err:   err,
 			})

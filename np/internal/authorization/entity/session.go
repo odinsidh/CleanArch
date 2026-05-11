@@ -13,6 +13,7 @@ type Session struct {
 
 var (
 	ErrSessionUserIDIsEqualToZero error = errors.New("session, user id is equal to zero")
+	ErrUserDoesNotExist           error = errors.New("user does nott exist")
 )
 
 func LoadSession(userID int, roles []RoleContainer) (*Session, error) {
